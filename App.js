@@ -7,16 +7,34 @@ import { StyleSheet, Text, View, ScrollView, TextInput, Image } from 'react-nati
  function App() {
   const [User, setUser] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
-
+  const [password, setPassword] = useState(null);
   return (
     <View style={styles.container}>
 
       <View style={styles.title}>
-        <Text> Welcome to Name Tracker 3000 </Text>
+        <Text style={styles.title}> Welcome to Nomen </Text>
       </View>
-        <Text> Please login:</Text>
-        <TextInput></TextInput>
+        <View style={styles.hblock}>
+          <Text> Username: </Text>
+        <TextInput
+        style={styles.login}
+        placeholder="  enter username"
+        onChangeText={text =>setUser(text)}
+        maxLength={50}
 
+        ></TextInput>
+        </View>
+
+        <View style={styles.hblock}>
+          <Text> Password: </Text>
+        <TextInput
+        style={styles.login}
+        placeholder="  enter password"
+        onChangeText={text =>setPassword(text)}
+        maxLength={50}
+        secureTextEntry={true}
+        ></TextInput>
+        </View>
 
       <StatusBar style="auto" />
     </View>
@@ -40,7 +58,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flex: .25,
-    fontSize: 100,
+    fontSize: 25,
+  },
+  hblock: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+
+  },
+  login: {
+    height: 25,
+    borderWidth: 1,
+    borderRadius: 15,
+    marginBottom: 4,
   }
 });
 
