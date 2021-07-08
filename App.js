@@ -1,14 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, ScrollView, TextInput, Image } from 'react-native';
-
+import { StyleSheet, Text, View, ScrollView, TextInput, Button } from 'react-native';
 
 
  function App() {
+
   const [User, setUser] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
   const [password, setPassword] = useState(null);
+
+
+
   return (
+
     <View style={styles.container}>
 
       <View style={styles.title}>
@@ -35,6 +39,12 @@ import { StyleSheet, Text, View, ScrollView, TextInput, Image } from 'react-nati
         secureTextEntry={true}
         ></TextInput>
         </View>
+        <Button
+        title='Login'
+        color='#00CCCC'
+
+        />
+
 
       <StatusBar style="auto" />
     </View>
@@ -43,13 +53,13 @@ import { StyleSheet, Text, View, ScrollView, TextInput, Image } from 'react-nati
 
 
 
+
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'column',
-    color: 'white',
     flex: 1,
-    backgroundColor: 'grey',
+    backgroundColor: '#BADBE4',
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
@@ -71,7 +81,7 @@ const styles = StyleSheet.create({
     height: 25,
     borderWidth: 1,
     borderRadius: 15,
-    marginBottom: 4,
+    marginBottom: 10,
   }
 });
 
