@@ -10,7 +10,7 @@ import Names from './names.js';
 function Home({User, loggedIn, setLoggedIn}) {
   const [names, setNames] = useState([]);
   const [showFaves, setShowFaves] = useState(false);
-
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   //fetch all names
   useEffect(() => {
