@@ -1,49 +1,59 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
 import { StyleSheet, Text, View, ScrollView, TextInput, Button } from 'react-native';
+import axios from 'axios';
+import Login from './components/login.js';
+import Home from './components/home.js';
 
 
- function App() {
 
-  const [User, setUser] = useState(null);
-  const [loggedIn, setLoggedIn] = useState(false);
+
+function App() {
+
+  const [User, setUser] = useState('Sean');
+  const [loggedIn, setLoggedIn] = useState(true);
   const [password, setPassword] = useState(null);
 
 
+  function loginClick () {
+    console.log('clicked')
+    const body = {
+      username: User,
+      password: password
+    }
+    const login = async () => {
+
+      const post = await axios.post(`http://localhost:3000/login`, body)
+        if(post.data[0]) {
+          setLoggedIn(true);
+        } else {
+          alert('Please enter a valid username and password')
+        }
+    }
+    login();
+  }
 
   return (
 
     <View style={styles.container}>
 
+
+      {!loggedIn ?
+      <>
       <View style={styles.title}>
         <Text style={styles.title}> Welcome to Nomen </Text>
       </View>
-        <View style={styles.hblock}>
-          <Text> Username: </Text>
-        <TextInput
-        style={styles.login}
-        placeholder="  enter username"
-        onChangeText={text =>setUser(text)}
-        maxLength={50}
+      <Login setUser={setUser} setPassword={setPassword} loginClick={loginClick}/> </>:
+      <>
+      <View style={styles.title}>
+        <Text style={styles.title}> Nomen </Text>
+      </View>
+        <Home User={User} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+        </>
+      }
 
-        ></TextInput>
-        </View>
 
-        <View style={styles.hblock}>
-          <Text> Password: </Text>
-        <TextInput
-        style={styles.login}
-        placeholder="  enter password"
-        onChangeText={text =>setPassword(text)}
-        maxLength={50}
-        secureTextEntry={true}
-        ></TextInput>
-        </View>
-        <Button
-        title='Login'
-        color='#00CCCC'
 
-        />
 
 
       <StatusBar style="auto" />
@@ -55,20 +65,26 @@ import { StyleSheet, Text, View, ScrollView, TextInput, Button } from 'react-nat
 
 
 const styles = StyleSheet.create({
+  cardcontainer: {
+    display: 'flex',
+    backgroundColor: 'blue',
+    flex: 1,
+
+  },
   container: {
     display: 'flex',
     flexDirection: 'column',
     flex: 1,
     backgroundColor: '#BADBE4',
-    alignItems: 'center',
     justifyContent: 'flex-start',
   },
   title: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    flex: .25,
-    fontSize: 25,
+    flex: .15,
+    fontSize: 40,
+    color: 'white'
   },
   hblock: {
     display: 'flex',
