@@ -4,11 +4,11 @@ import { StyleSheet, Text, View, ScrollView, TextInput, Button, Dimensions, Anim
 import axios from 'axios';
 import Favorites from './favorites.js';
 import Names from './names.js';
-
+import Swiper from './swiper.js';
 
 
 function Home({User, loggedIn, setLoggedIn}) {
-  const [names, setNames] = useState([]);
+  const [names, setNames] = useState([{babyname:'', id: 0, gender: ''}]);
   const [showFaves, setShowFaves] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -21,7 +21,6 @@ function Home({User, loggedIn, setLoggedIn}) {
     getNames();
   }, []);
 
-  let nameslice = names.slice(0,25);
 
   return(<>
 
@@ -41,14 +40,11 @@ function Home({User, loggedIn, setLoggedIn}) {
     <View style={{ flex: 1 }}>
         <View style={{ height: 60 }} />
         <View style={{ flex: .5}}>
-        {
-        nameslice.map(({babyname, gender, id}) => {
-          return <Names babyname={babyname} gender={gender} id={id} key={id}/>
-        })}
+        {names.length > 1 && (<Swiper names={names} currentIndex={currentIndex}></Swiper>) }
         </View>
         <View style={{ height: 60 }} />
-      </View>
-}
+      </View>}
+
   </>)
 }
 
@@ -90,7 +86,7 @@ const styles = StyleSheet.create({
     margin: '5px',
     fontSize: 14,
     color: 'navy',
-  }
+  },
 });
 
 export default Home;
