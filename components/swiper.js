@@ -4,7 +4,7 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { RectButton } from 'react-native-gesture-handler';
 import Names from './names.js'
 
-function Swiper ({names, currentIndex}) {
+function Swiper ({names, currentIndex, handleLike, handleDislike}) {
 
   const renderLeftActions = () => {
     return(<RectButton style={styles.container}>
@@ -25,6 +25,8 @@ function Swiper ({names, currentIndex}) {
       rightThreshold={50}
       renderLeftActions={renderLeftActions}
       renderRightActions={renderRightActions}
+      onSwipeableLeftOpen={handleLike}
+      onSwipeableRightOpen={handleDislike}
       >
           <Names bname={names[currentIndex]}/>
       </Swipeable>
@@ -34,7 +36,8 @@ function Swiper ({names, currentIndex}) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    
   }
 })
 export default Swiper

@@ -29,6 +29,7 @@ function Login ({setUser, setPassword, loginClick}) {
         ></TextInput>
         </View>
         <Button
+
         title='Login'
         color='#00CCCC'
         onPress={loginClick}

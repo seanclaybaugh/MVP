@@ -21,6 +21,26 @@ function Home({User, loggedIn, setLoggedIn}) {
     getNames();
   }, []);
 
+    function handleLike () {
+      console.log('like', names[currentIndex])
+
+      const sendLike = async () => {
+        const body = names[currentIndex]
+        body.username = User;
+      const send = await axios.post(`http://localhost:3000/name`, body)
+      console.log(send)
+      }
+      sendLike()
+      nextName()
+    }
+    function handleDislike () {
+      console.log('dislike')
+      nextName()
+    }
+    function nextName() {
+      const nextIndex = names.length - 2 === currentIndex ? 0: currentIndex +1
+      setCurrentIndex(nextIndex)
+    }
 
   return(<>
 
@@ -40,7 +60,7 @@ function Home({User, loggedIn, setLoggedIn}) {
     <View style={{ flex: 1 }}>
         <View style={{ height: 60 }} />
         <View style={{ flex: .5}}>
-        {names.length > 1 && (<Swiper names={names} currentIndex={currentIndex}></Swiper>) }
+        {names.length > 1 && names.map((n, i)=> currentIndex === i && <Swiper key={i} names={names} currentIndex={currentIndex} handleLike={handleLike} handleDislike={handleDislike}></Swiper>) }
         </View>
         <View style={{ height: 60 }} />
       </View>}

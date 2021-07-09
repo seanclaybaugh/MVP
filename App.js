@@ -10,8 +10,8 @@ import Home from './components/home.js';
 
 function App() {
 
-  const [User, setUser] = useState('Sean');
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [User, setUser] = useState(null);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [password, setPassword] = useState(null);
 
 
@@ -41,7 +41,7 @@ function App() {
       {!loggedIn ?
       <>
       <View style={styles.title}>
-        <Text style={styles.title}> Welcome to Nomen </Text>
+        <Text style={styles.title}> Nomen </Text>
       </View>
       <Login setUser={setUser} setPassword={setPassword} loginClick={loginClick}/> </>:
       <>
@@ -84,7 +84,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: .15,
     fontSize: 40,
-    color: 'white'
+    color: 'white',
+    fontFamily: 'Chalkduster'
   },
   hblock: {
     display: 'flex',

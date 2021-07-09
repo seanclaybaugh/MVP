@@ -15,17 +15,18 @@ return (
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: 'grey',
-      width: SCREEN_WIDTH,
+      backgroundColor: '#00CCCC',
+      width: SCREEN_WIDTH - 20,
+      margin: 10,
       height: (SCREEN_HEIGHT * .33),
-      borderRadius: 20,
-      borderWidth: 1,}}>
-        {console.log(bname.babyname)}
+      borderRadius: 200,}}>
       <Text
       style={{
         fontSize: 50,
         borderRadius: 20,
-        backgroundColor: 'grey'}}>{bname.babyname} </Text>
+        color: 'white',
+        fontFamily: 'Chalkduster',
+        backgroundColor: '#00CCCC'}}>{bname.babyname} </Text>
     </View>
 
 );
