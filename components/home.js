@@ -20,16 +20,18 @@ function Home({User, loggedIn, setLoggedIn}) {
       const bnames = await axios.get(`http://localhost:3000/`)
       setNames(bnames.data);
 
-      const FEM = bnames.data.map((val) =>{
+      const FEM = bnames.data.filter((val) =>{
         if(val.gender === 'FEMALE'){
           return val;
         }
+        return;
       })
       setFemales(FEM);
-      const MALE = bnames.data.map((val) =>{
+      const MALE = bnames.data.filter((val) =>{
         if(val.gender === 'MALE'){
           return val;
         }
+        return;
       })
       setMales(MALE);
     }
@@ -62,11 +64,22 @@ function Home({User, loggedIn, setLoggedIn}) {
       <View style={styles.hblock}>
         <Text style={styles.menutext} onPress={()=>setShowFaves(!showFaves)}>My Favorites  |</Text>
 
-        <Text style={styles.menutext} onClick={()=> setDisplay('MALE')}>Male Names  |</Text>
+        <Text style={styles.menutext} onClick={()=> {
+          setDisplay('MALE')
+          setShowFaves(false)
+        }
+          }>Male Names  |</Text>
 
-        <Text style={styles.menutext} onClick={()=> setDisplay('FEMALE')}> Female Names  |</Text>
+        <Text style={styles.menutext} onClick={()=> {
+          setDisplay('FEMALE')
+          setShowFaves(false)
+        }
+      }> Female Names  |</Text>
 
-        <Text style={styles.menutext} onClick={()=> setDisplay('ALL')}>All Names</Text>
+        <Text style={styles.menutext} onClick={()=> {
+          setDisplay('ALL')
+          setShowFaves(false)
+          }}>All Names</Text>
 
       </View>
     {showFaves && <Favorites User={User} />}
@@ -75,7 +88,13 @@ function Home({User, loggedIn, setLoggedIn}) {
     <View style={{ flex: 1 }}>
         <View style={{ height: 60 }} />
         <View style={{ flex: .5}}>
-        {names.length > 1 && names.map((n, i)=> currentIndex === i && <Swiper key={i} names={names} currentIndex={currentIndex} handleLike={handleLike} handleDislike={handleDislike}></Swiper>) }
+
+        {(names.length > 1 && display === 'ALL') && names.map((n, i)=> currentIndex === i && <Swiper key={i} names={names} currentIndex={currentIndex} handleLike={handleLike} handleDislike={handleDislike}></Swiper>) }
+
+        {(names.length > 1 && display === 'MALE') && males.map((n, i)=> currentIndex === i && <Swiper key={i} names={males} currentIndex={currentIndex} handleLike={handleLike} handleDislike={handleDislike}></Swiper>) }
+
+        {(names.length > 1 && display === 'FEMALE') && females.map((n, i)=> currentIndex === i && <Swiper key={i} names={females} currentIndex={currentIndex} handleLike={handleLike} handleDislike={handleDislike}></Swiper>) }
+
         </View>
         <View style={{ height: 60 }} />
       </View>}
