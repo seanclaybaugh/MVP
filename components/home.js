@@ -11,12 +11,27 @@ function Home({User, loggedIn, setLoggedIn}) {
   const [names, setNames] = useState([{babyname:'', id: 0, gender: ''}]);
   const [showFaves, setShowFaves] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-
+  const [ males, setMales] = useState({babyname: '', id: 0, gender: ''})
+  const [ females, setFemales] = useState({babyname: '', id: 0, gender: ''})
+  const [ display, setDisplay ] = useState('ALL');
   //fetch all names
   useEffect(() => {
     const getNames = async () => {
       const bnames = await axios.get(`http://localhost:3000/`)
       setNames(bnames.data);
+
+      const FEM = bnames.data.map((val) =>{
+        if(val.gender === 'FEMALE'){
+          return val;
+        }
+      })
+      setFemales(FEM);
+      const MALE = bnames.data.map((val) =>{
+        if(val.gender === 'MALE'){
+          return val;
+        }
+      })
+      setMales(MALE);
     }
     getNames();
   }, []);
@@ -47,11 +62,11 @@ function Home({User, loggedIn, setLoggedIn}) {
       <View style={styles.hblock}>
         <Text style={styles.menutext} onPress={()=>setShowFaves(!showFaves)}>My Favorites  |</Text>
 
-        <Text style={styles.menutext}>Male Names  |</Text>
+        <Text style={styles.menutext} onClick={()=> setDisplay('MALE')}>Male Names  |</Text>
 
-        <Text style={styles.menutext}> Female Names  |</Text>
+        <Text style={styles.menutext} onClick={()=> setDisplay('FEMALE')}> Female Names  |</Text>
 
-        <Text style={styles.menutext}>All Names</Text>
+        <Text style={styles.menutext} onClick={()=> setDisplay('ALL')}>All Names</Text>
 
       </View>
     {showFaves && <Favorites User={User} />}
